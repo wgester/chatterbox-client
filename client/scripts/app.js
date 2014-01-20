@@ -15,7 +15,7 @@ var message = {
   'username': 'shawndrost',
   'text': 'trololo',
   'roomname': '4chan'
-};
+}; 
 
 $.ajax({
   url: 'https://api.parse.com/1/classes/chatterbox',
