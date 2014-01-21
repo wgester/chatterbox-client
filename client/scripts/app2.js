@@ -2,8 +2,11 @@ var Message = Backbone.Model.extend({
  
 });
 
-var messages = new Message({});
-
+var MessageCollection = Backbone.Collection.extend({
+    model: Message
+});
+   
+var messageCollection = new MessageCollection({}); 
 
 var get = function(){
   $.ajax({
@@ -12,10 +15,13 @@ var get = function(){
       success: function(data){
         $('#allMessages').text('');
         for (var i = 0; i < data.results.length; i++){
-            data.results[i]['roomname'] = removeTags(data.results[i]['roomname']);
-            data.results[i]['username'] = removeTags(data.results[i]['username']);
-            data.results[i]['text'] = removeTags(data.results[i]['text']);
-            messages.set(data.results[i].createdAt, data.results[i]);
+            var message = new Message({});
+            message.set({
+                'roomname' : removeTags(data.results[i]['roomname']),
+                'username' : removeTags(data.results[i]['username']),
+                'text' : removeTags(data.results[i]['text'])
+            });
+            messageCollection.add(message);
         }
     }
   });
@@ -50,7 +56,6 @@ var removeTags = function (html) {
 }
 
 // user model, submitting messages
-
 var post = function(){
     $.ajax({
       url: 'https://api.parse.com/1/classes/chatterbox',
