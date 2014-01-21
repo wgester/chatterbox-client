@@ -5,10 +5,24 @@ body {
     margin:0px;
     font-family: sans-serif;
 }
+h1 {
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 100%;
+}
+
 li {
     list-style: none;
     font-size: 14px
     text-align:left;
+}
+::selection {
+    background: red; 
+    }
+::-moz-selection {
+    background: red; 
 }
 
 #main {
@@ -35,4 +49,20 @@ li {
 #rooms{
     margin-top:10px;
     margin-left:10px;
+}
+button {
+    width: 80px;
+    height: 20px;
+    border : 0px;
+    margin:3px;
+    background-color:orange;
+    color:purple;
+    /*-moz-border-radius:7px;*/
+    /*-webkit-border-radius:7px;*/
+    border-radius:7px;
+}
+
+#friendDiv {
+    width: 10%;
+    
 }

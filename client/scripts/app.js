@@ -9,31 +9,56 @@ var get = function(){
         for (var i = 0; i < data.results.length; i++){
             var roomname = removeTags(data.results[i]['roomname']);
             var username = removeTags(data.results[i]['username']);
-            var message = removeTags(data.results[i]['text']);
+            var text = removeTags(data.results[i]['text']);
             if(!(allRooms[roomname]) && roomname && (roomname !== 'main')){
-                $('#rooms').append('<button id='+ roomname +'>' + roomname +'</button>'); 
+                $('#rooms').append('<button id='+ roomname +' class="room">' + roomname +'</button>'); 
                 allRooms[roomname] = roomname;  
             }
-            if(message.length <= 140){
-                $('#allMessages').append('<li class='+username+'>' + '<b>' + username + '</b>' + ' ' + message + '</li>')
+            if(text.length <= 140){
+                $('#allMessages').append('<li class="user" class='+username+'>' + '<b>' + username + '</b>' + ' ' + text + '</li>')
             };
         };
       },
   });
 };
 
+//Refresh for chat rooms
+var getSpecific = function(){
+    $.ajax({
+    url: 'https://api.parse.com/1/classes/chatterbox',
+    data: {'order' : '-createdAt'},
+    success: function(data){
+        $('#allMessages').text('');
+        for (var i = 0; i < data.results.length; i++){
+            var roomname = removeTags(data.results[i]['roomname']);
+            var username = removeTags(data.results[i]['username']);
+            var text = removeTags(data.results[i]['text']);
+            if (roomname === message.roomname){
+                if(!(allRooms[roomname]) && roomname && (roomname !== 'main')){
+                    $('#rooms').append('<button id='+ roomname +' class="room">' + roomname +'</button>'); 
+                    allRooms[roomname] = roomname;  
+                }
+                if(text.length <= 140){
+                    $('#allMessages').append('<li class="user" class='+username+'>' + '<b>' + username + '</b>' + ' ' + text + '</li>')
+                };
+            }
+        };
+      },
+  });
+}
+
 get();
 
 //Refresher
 $('#refreshing').on('click', function(){
-  get();
+    get();
 });
 
 //Example message object
 var message = {
   'username': window.location.search.slice(10),
   'text': 'text',
-  'roomname': 'main'
+  'roomname': 'home'
 }; 
 
 
@@ -61,8 +86,11 @@ var sendChat = function(){
         post();
         $('#yourMessage')[0].value = $('#yourMessage')[0].defaultValue;
     }
-    get();
-
+    if(message.roomname === main){
+        get();
+    } else {
+        getSpecific();
+    }
 }
 $('#submitText').on('click', function(){
     sendChat();
@@ -101,15 +129,33 @@ var removeTags = function (html) {
 
 //Create A Room
 $('#submitRoom').on('click', function(){
-    $('#rooms').append('<button id=' + $('#createRoom').value + '>' + $('#createRoom').value +  '</button>');
+    $('#rooms').append('<button id=' + $('#createRoom')[0].value + ' class="room">' + $('#createRoom')[0].value +  '</button>');
 });
 
 
+//enter room 
+$('body').on('click', '.room', function(){
+    var room = this;
+    if ($(room).text() === 'home'){
+        // message.roomname = 'home'; <------------------- NEEDS THOUGHT
+        get();
+        $('h1').text('');
+        $('h1').append('home');
+        $('h2').text('');
+        return;
+    }
+    $('h1').text('');
+    $('#allMessages').text('');
+    $('h1').append($(room).text());
+    $('h2').text('');
+    $('h2').append("You're discussing " + $(room).text());
+    message.roomname = $(room).text();
+    getSpecific();
+});
 
-$('body').on('click', 'button', function(){
-    console.log(this);
-})
 
+//Friend Section
+// $('.user').on('click', function(){
 
-
+// });
 
