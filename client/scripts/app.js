@@ -15,7 +15,7 @@ var get = function(){
                 allRooms[roomname] = roomname;  
             }
             if(text.length <= 140){
-                $('#allMessages').append('<li class="user" class='+username+'>' + '<b>' + username + '</b>' + ' ' + text + '</li>')
+                $('#allMessages').append('<li class="user ' +username+'">' + '<b>' + username + '</b>' + ' ' + text + '</li>')
             };
         };
       },
@@ -51,7 +51,8 @@ get();
 
 //Refresher
 $('#refreshing').on('click', function(){
-    get();
+  console.log('hello')
+  get();
 });
 
 //Example message object
@@ -86,7 +87,7 @@ var sendChat = function(){
         post();
         $('#yourMessage')[0].value = $('#yourMessage')[0].defaultValue;
     }
-    if(message.roomname === main){
+    if(message.roomname === 'home'){
         get();
     } else {
         getSpecific();
@@ -132,7 +133,7 @@ $('#submitRoom').on('click', function(){
     $('#rooms').append('<button id=' + $('#createRoom')[0].value + ' class="room">' + $('#createRoom')[0].value +  '</button>');
 });
 
-
+// $('html').on('click', function())
 //enter room 
 $('body').on('click', '.room', function(){
     var room = this;
@@ -153,9 +154,17 @@ $('body').on('click', '.room', function(){
     getSpecific();
 });
 
+var friends = {};
 
 //Friend Section
-// $('.user').on('click', function(){
-
-// });
+$('body').on('click', '.user', function(){
+  var friendConfirm = confirm('Add to friends?')
+  if(friendConfirm === true){
+    if (!friends[this.className.slice(5)]){
+      $('#friendDiv').find('h3').text('Friends');
+      $('#friendDiv').append('<li>' + this.className.slice(5)+ '</li>')
+      friends[this.className.slice(5)] = true;
+    }
+  }
+});
 

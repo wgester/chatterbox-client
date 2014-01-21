@@ -5,12 +5,13 @@ body {
     margin:0px;
     font-family: sans-serif;
 }
-h1 {
+h1{
     text-transform: uppercase;
+    padding:5px;
 }
 
 h2 {
-    font-size: 100%;
+    padding:5px;
 }
 
 li {
@@ -26,14 +27,16 @@ li {
 }
 
 #main {
-    width: 500px;
-    margin: 10px;
+    width: 46%;
+    margin-left: auto;
+    margin-right:auto;
     text-align: left;
     background: white;
     padding: 50px 60px;
+    padding-top:0px;
+    margin-top:-340px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
-    position:absolute;
 }
 
 #main h1 {
@@ -47,22 +50,47 @@ li {
 
 }
 #rooms{
-    margin-top:10px;
-    margin-left:10px;
-}
-button {
-    width: 80px;
-    height: 20px;
-    border : 0px;
-    margin:3px;
-    background-color:orange;
-    color:purple;
-    /*-moz-border-radius:7px;*/
-    /*-webkit-border-radius:7px;*/
-    border-radius:7px;
+    width:20%;
+    background-color:white;
+    text-transform: uppercase;
+    padding-bottom:10px;
+    /*float:left;*/
 }
 
+ button{
+    margin-top:10px;
+    /*float:left;*/
+    border : 0px;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+     border-radius:0px;
+    display: inline-block;
+}
+/*button {
+    width: 80px;
+    height: 20px;
+    border: 0px;
+    margin: 3px;
+    color:purple;
+  
+}*/
+#chatStuff {
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 0px; 
+    height:50px;
+    width:56%;
+
+    background-color:white;
+}
 #friendDiv {
-    width: 10%;
-    
+    width: 20%;
+    float: left;
+    margin-top:10px;
+    background-color:white;
+    height:100px;
+}
+
+#yourMessage {
+    width: %;
 }
