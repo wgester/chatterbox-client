@@ -2,16 +2,24 @@ body {
     background: #eee;
     text-align: center;
     padding: 0 25px;
+    margin:0px;
+    font-family: sans-serif;
+}
+li {
+    list-style: none;
+    font-size: 14px
+    text-align:left;
 }
 
 #main {
     width: 500px;
-    margin: auto;
+    margin: 10px;
     text-align: left;
     background: white;
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+    position:absolute;
 }
 
 #main h1 {
@@ -21,4 +29,10 @@ body {
 
 #main li {
     list-style: none;
+    width: 450px;
+
+}
+#rooms{
+    margin-top:10px;
+    margin-left:10px;
 }
